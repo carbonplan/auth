@@ -1,0 +1,51 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "library for adding simple authentication to sites",
+  "type": "module",
+  "main": "dst/index.cjs",
+  "module": "dst/index.module.js",
+  "source": "src/index.js",
+  "scripts": {
+    "build": "rimraf dst && microbundle build --jsx React.createElement --jsxFragment React.Fragment -f modern,es,cjs",
+    "watch": "rimraf dst && microbundle watch --jsx React.createElement --jsxFragment React.Fragment -f modern,es,cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbonplan/auth.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carbonplan/auth/issues"
+  },
+  "homepage": "https://github.com/carbonplan/auth#readme",
+  "exports": {
+    ".": {
+      "require": "./dst/index.cjs",
+      "default": "./dst/index.modern.js"
+    }
+  },
+  "files": [
+    "dst"
+  ],
+  "prettier": "@carbonplan/prettier",
+  "peerDependencies": {
+    "@carbonplan/components": "^11.2.3",
+    "next": "^10.1.3 || ^11.0.1 || || ^12.0.4",
+    "react": "^16.14.0 || ^17.0.2",
+    "react-dom": "^16.14.0 || ^17.0.2",
+    "theme-ui": ">=0.11.0"
+  },
+  "devDependencies": {
+    "@carbonplan/prettier": "^1.2.0",
+    "microbundle": "^0.14.0",
+    "prettier": "2.5.0",
+    "rimraf": "2.6.3"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "safe-compare": "^1.1.4",
+    "swr": "^1.3.0"
+  }
+}
