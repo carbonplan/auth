@@ -1,11 +1,10 @@
 import useSWR from 'swr'
-import { useState, useEffect, createContext, useContext } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect, createContext, useContext } from 'react'
+import { useRouter } from 'next/router.js'
 import { Layout } from '@carbonplan/components'
 import { useSession } from './session'
 
 export const useAuth = () => {
-  const router = useRouter()
   const [{ token }] = useSession()
 
   const fetcher = (url, token) =>
