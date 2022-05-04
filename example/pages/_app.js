@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import { ThemeProvider } from 'theme-ui'
 import theme from '@carbonplan/theme'
 import { AuthProvider } from '@carbonplan/auth'
+import '@carbonplan/components/fonts.css'
+import '@carbonplan/components/globals.css'
 
 const App = ({ Component, pageProps }) => {
-  const [session, setSession] = useState({ token: null, username: null })
   return (
-    <AuthProvider session={session} setSession={setSession}>
+    <AuthProvider config={{ useLocalStorage: true }}>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>

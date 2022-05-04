@@ -9,4 +9,4 @@ const users = [
   },
 ]
 
-export default api(secret, users)
+export default api({ secret, users, expiration: 5 })

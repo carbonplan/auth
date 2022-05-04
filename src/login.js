@@ -1,18 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Text, Heading, Input, Button } from 'theme-ui'
 import { useRouter } from 'next/router.js'
 import { Layout, Row, Column } from '@carbonplan/components'
 import { useSession } from './session'
+import { storage } from './storage'
 
 const Login = ({ origin }) => {
   const router = useRouter()
-  const [, setSession] = useSession()
+  const [{ config }, setSession] = useSession()
   const [status, setStatus] = useState(null)
   const [password, setPassword] = useState('')
 
   const { redirect } = router.query
 
   const disabled = ['authenticating', 'submitting'].includes(status)
+
+  useEffect(() => {
+    if (config.useLocalStorage) {
+      const auth = storage.get()
+      if (auth && redirect) {
+        router.push(redirect)
+      }
+    }
+  }, [redirect, config.useLocalStorage])
 
   async function submit(e) {
     setStatus('submitting')
@@ -31,7 +41,8 @@ const Login = ({ origin }) => {
       }, 1000)
     } else {
       const { username, token } = await res.json()
-      setSession({ token: token, username: username })
+      setSession({ token: token, username: username, config: config })
+      if (config.useLocalStorage) storage.set(token)
       setStatus('authenticating')
       if (redirect) {
         router.push(redirect)
@@ -42,7 +53,12 @@ const Login = ({ origin }) => {
   }
 
   return (
-    <Layout status={status} footer={false}>
+    <Layout
+      status={status}
+      footer={false}
+      title='CarbonPlan – Login'
+      description='Login page for authenticated resource'
+    >
       <Row sx={{ mt: [5] }}>
         <Column start={[1, 2]} width={[6, 6]}>
           <Heading sx={{ my: [4, 5, 5], fontSize: [6, 7, 7] }}>

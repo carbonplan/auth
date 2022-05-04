@@ -3,14 +3,23 @@ import React, { useState, useEffect, createContext, useContext } from 'react'
 import { useRouter } from 'next/router.js'
 import { Layout } from '@carbonplan/components'
 import { useSession } from './session'
+import { storage } from './storage'
 
-export const useAuth = () => {
-  const [{ token }] = useSession()
+export function useAuth() {
+  const router = useRouter()
+  const [{ token, config }] = useSession()
+
+  let auth
+  if (config.useLocalStorage) {
+    auth = token || storage.get()
+  } else {
+    auth = token
+  }
 
   const fetcher = (url, token) =>
-    fetch(url, { headers: { Authorization: token } }).then((r) => r.json())
+    fetch(url, { headers: { Authorization: auth } }).then((r) => r.json())
 
-  const { data, error } = useSWR(['/api/auth', token], fetcher)
+  const { data, error } = useSWR(['/api/auth', auth], fetcher)
   const loading = !data && !error
   const authed = data && data.authed
   const username = data && data.authed ? data.username : null
@@ -22,10 +31,12 @@ export const withAuth =
   (Component, usernames = ['admin']) =>
   () => {
     const router = useRouter()
+    const [{ config }] = useSession()
     const { data, error, loading } = useAuth()
 
     useEffect(() => {
       if ((data && !data.authed) || error) {
+        if (config.useLocalStorage) storage.remove()
         window.location.assign(
           `/login?redirect=${encodeURIComponent(router.pathname)}`
         )
@@ -35,13 +46,26 @@ export const withAuth =
     if (data && data.username) {
       if (!usernames.includes(data.username)) {
         data.authed = false
-        return <Layout status={'restricted'}></Layout>
+        return (
+          <Layout
+            title='CarbonPlan – Login'
+            description='Login page for authenticated resource'
+            status={'restricted'}
+          ></Layout>
+        )
       }
     }
 
     if (data && data.authed) {
       return <Component />
     } else {
-      return <Layout footer={false} status={'authenticating'}></Layout>
+      return (
+        <Layout
+          title='CarbonPlan – Login'
+          description='Login page for authenticated resource'
+          footer={false}
+          status={'authenticating'}
+        ></Layout>
+      )
     }
   }

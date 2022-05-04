@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken'
 import safeCompare from 'safe-compare'
 
-const api = (secret, users) => {
+const api = ({ secret, users, expiration = '1h' }) => {
   const handler = (req, res) => {
     if (req.method === 'POST') {
       const user = users.find((d) => safeCompare(d.password, req.body.password))
       if (user) {
         const token = jwt.sign({ username: user.username }, secret, {
-          expiresIn: '24h',
+          expiresIn: expiration,
         })
         res.status(200).json({ username: user.username, token: token })
       } else {
