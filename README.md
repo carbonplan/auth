@@ -49,7 +49,7 @@ const handler = api({ secret, users })
 export default handler
 ```
 
-The handler accepts one additional option, `expiration`, which controls the expiration time for the JSON webtokens. The default is `1hr` but you can provide either a number to specify in seconds (`{expiration: 60}`) or as a string (`{expiration: '5hrs'}`).
+The handler accepts one additional option, `expiration`, which controls the expiration time for the JSON webtokens. The default is `1hr` but you can provide either a number to specify in seconds e.g. `{expiration: 60}` or as a string e.g. `{expiration: '5hrs'}`. See the [`jsonwebtoken`](https://github.com/auth0/node-jsonwebtoken#readme) docs for more details
 
 #### `step 02`
 
