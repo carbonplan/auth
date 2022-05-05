@@ -8,7 +8,6 @@
 **adding simple password authentication to sites**
 
 [![GitHub][github-badge]][github]
-[![Build Status]][actions]
 ![MIT License][]
 ![NPM Version][]
 
