@@ -96,7 +96,7 @@ const Protected = () => {
 export default withAuth(Protected, ['user'])
 ```
 
-Whenever someone routes to `/protected` they will be redirected to the login page to enter their password. The second argument to `withAuth` specifies a list of valid user ids, which correspond to the ids used when defining the list of valid passwords in step 01.
+Whenever someone routes to `/protected` they will first be redirected to the login page to enter their password, and then if the password is valid they will be directed back to `/protected` to see its content. The second argument to `withAuth` specifies a list of valid user ids, which correspond to the ids used when defining the list of valid passwords in step 01.
 
 For example, if in that step we defined
 
