@@ -100,15 +100,15 @@ Whenever someone routes to `/protected` they will first be redirected to the log
 
 The second argument to `withAuth` specifies a list of valid user ids, which correspond to the ids used when defining the list of valid passwords in `step 01`. For example, if in that step we defined
 
-```
+```js
 const users = [
   {
     username: 'user',
-    password: 'foo'
+    password: 'foo',
   },
   {
     username: 'admin',
-    password: 'duh'
+    password: 'duh',
   },
 ]
 ```
