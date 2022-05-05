@@ -35,7 +35,7 @@ You then need to follow four steps to incorporate auth into your site. For these
 
 Create an api route in your `pages` folder e.g. `api/auth.js`. This file needs to define a secret key for use with the `jsonwebtoken` package, and also define a mapping from one or more user ids to passwords, and then pass these to the `api` function which returns a handler. Typically, you will source these from environmental variables so that they are only accessible on the server. Remember to never commit these keys to GitHub or otherwise make them public!
 
-```
+```js
 import { api } from '@carbonplan/auth'
 
 const secret = process.env.JWT_SECRET
@@ -58,7 +58,7 @@ The handler accepts one additional option, `expiration`, which controls the expi
 
 Wrap your app in an `AuthProvider` by adding the following to your `_app.js` file.
 
-```
+```jsx
 import { AuthProvider } from '@carbonplan/auth'
 
 const App = ({ Component, pageProps }) => {
@@ -76,7 +76,7 @@ The `AuthProvider` component also accepts a `config` property. Currently the onl
 
 Create a `login.js` page with the following content in your `pages` folder.
 
-```
+```jsx
 import { Login } from '@carbonplan/auth'
 
 export default Login
@@ -86,8 +86,7 @@ export default Login
 
 For any page that you want to require authentication for access, wrap the page component using the `withAuth` higher-order component. For example, we could define a page `pages/protected.js` as follows.
 
-```
-
+```jsx
 import { withAuth } from '@carbonplan/auth'
 
 const Protected = () => {
