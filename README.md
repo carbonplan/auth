@@ -84,7 +84,7 @@ export default Login
 
 #### `step 04`
 
-For any page that you want to require authentication for access, wrap the page component using the `withAuth` higher-order component. For example, we could define a page `pages/protected.js` as follows.
+For any page where you want to require authentication for access, wrap the page component using the `withAuth` higher-order component. For example, we could define a page `pages/protected.js` as follows.
 
 ```jsx
 import { withAuth } from '@carbonplan/auth'
