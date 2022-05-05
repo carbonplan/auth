@@ -113,7 +113,7 @@ const users = [
 ]
 ```
 
-Then a page using `withAuth(Protected, ['user'])` would be accessible with the password `foo` (but not `duh`) and a page using `withAuth(Protected, ['admin'])` would be accessible with the password `duh` (but not `foo`). A page using `withAuth(Protected, ['user', 'admin'])` would be accessible with either password. Because we set this at every page, this pattern creates a lot of flexibility in terms of who gets access to which page, but without requiring an explicit model of user accounts or user data.
+Then a page using `withAuth(Protected, ['user'])` would be accessible with the password `foo` (but not `duh`) and a page using `withAuth(Protected, ['admin'])` would be accessible with the password `duh` (but not `foo`). A page using `withAuth(Protected, ['user', 'admin'])` would be accessible with either password. Because we set the list of users for every page, this pattern creates a lot of flexibility in terms of who gets access to which page, but without requiring an explicit model of user accounts or user data.
 
 ## license
 
