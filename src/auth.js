@@ -29,7 +29,7 @@ export function useAuth() {
 
 export const withAuth =
   (Component, usernames = ['admin']) =>
-  () => {
+  (props) => {
     const router = useRouter()
     const [{ config }] = useSession()
     const { data, error, loading } = useAuth()
@@ -57,7 +57,7 @@ export const withAuth =
     }
 
     if (data && data.authed) {
-      return <Component />
+      return <Component {...props} />
     } else {
       return (
         <Layout
