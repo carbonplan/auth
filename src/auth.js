@@ -38,7 +38,7 @@ export const withAuth =
       if ((data && !data.authed) || error) {
         if (config.useLocalStorage) storage.remove()
         window.location.assign(
-          `/login?redirect=${encodeURIComponent(router.pathname)}`
+          `/login?redirect=${encodeURIComponent(router.asPath)}`
         )
       }
     }, [data])
