@@ -1,6 +1,6 @@
 {
   "name": "@carbonplan/auth",
-  "version": "1.0.0-develop.14",
+  "version": "1.0.0",
   "description": "library for adding simple authentication to sites",
   "type": "module",
   "main": "dst/index.cjs",
