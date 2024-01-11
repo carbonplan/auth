@@ -1,20 +1,18 @@
-<img
-  src='https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png'
-  height='48'
-/>
+<p align="left" >
+<a href='https://carbonplan.org'>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://carbonplan-assets.s3.amazonaws.com/monogram/light-small.png">
+  <img alt="CarbonPlan monogram." height="48" src="https://carbonplan-assets.s3.amazonaws.com/monogram/dark-small.png">
+</picture>
+</a>
+</p>
 
 # carbonplan / auth
 
 **adding simple password authentication to sites**
 
-[![GitHub][github-badge]][github]
-![MIT License][]
-![NPM Version][]
-
-[github]: https://github.com/carbonplan/auth
-[github-badge]: https://badgen.net/badge/-/github?icon=github&label
-[mit license]: https://badgen.net/badge/license/MIT/blue
-[npm version]: https://badgen.net/npm/v/@carbonplan/auth
+![NPM Version](https://img.shields.io/npm/v/@carbonplan/auth)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A library for adding simple password authentication to [`next.js`](https://github.com/vercel/next) sites. Rather than use a full-blown user-based authentication system, we adopt a password-only model that is well suited to sharing content previews and similar use cases that do not involve user accounts or other forms of user data.
 
@@ -114,8 +112,8 @@ Then a page using `withAuth(Protected, ['user'])` would be accessible with the p
 
 ## license
 
-All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/) licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
+All the code in this repository is [MIT](https://choosealicense.com/licenses/mit/)-licensed, but we request that you please provide attribution if reusing any of our digital content (graphics, logo, articles, etc.).
 
 ## about us
 
-CarbonPlan is a non-profit organization that uses data and science for climate action. We aim to improve the transparency and scientific integrity of climate solutions with open data and tools. Find out more at [carbonplan.org](https://carbonplan.org/) or get in touch by [opening an issue](https://github.com/carbonplan/auth/issues/new) or [sending us an email](mailto:hello@carbonplan.org).
+CarbonPlan is a nonprofit organization that uses data and science for climate action. We aim to improve the transparency and scientific integrity of climate solutions with open data and tools. Find out more at [carbonplan.org](https://carbonplan.org/) or get in touch by [opening an issue](https://github.com/carbonplan/auth/issues/new) or [sending us an email](mailto:hello@carbonplan.org).
