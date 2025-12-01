@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Text, Heading, Input, Button } from 'theme-ui'
+import { Box, Heading, Input, Button } from 'theme-ui'
 import { useRouter } from 'next/router.js'
-import { Layout, Row, Column } from '@carbonplan/components'
+import { Layout, Row, Column, Link } from '@carbonplan/components'
 import { useSession } from './session'
 import { storage } from './storage'
 
-const Login = ({ origin }) => {
+const Login = ({ disclaimer }) => {
   const router = useRouter()
   const [{ config }, setSession] = useSession()
   const [status, setStatus] = useState(null)
@@ -64,10 +64,15 @@ const Login = ({ origin }) => {
           <Heading sx={{ my: [4, 5, 5], fontSize: [6, 7, 7] }}>
             This page is private
           </Heading>
-          <Text sx={{ my: [3, 4, 4], fontSize: [4, 5, 5] }}>
+          <Box sx={{ mt: [3, 4, 4], fontSize: [4, 5, 5] }}>
             Enter a password to continue
-          </Text>
-          <Box as='form' onSubmit={submit} sx={{ fontSize: [4], mb: [4] }}>
+          </Box>
+          {disclaimer && <Box sx={{ mt: [2] }}>{disclaimer}</Box>}
+          <Box
+            as='form'
+            onSubmit={submit}
+            sx={{ fontSize: [4], mt: [3, 4, 4], mb: [4] }}
+          >
             <Input
               sx={{
                 width: ['200px'],
