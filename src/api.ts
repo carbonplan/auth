@@ -1,8 +1,19 @@
 import jwt from 'jsonwebtoken'
 import safeCompare from 'safe-compare'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-const api = ({ secret, users, expiration = '1h' }) => {
-  const handler = (req, res) => {
+type User = { username: string; password: string }
+
+const api = ({
+  secret,
+  users,
+  expiration = '1h',
+}: {
+  secret: string
+  users: User[]
+  expiration?: string | number
+}) => {
+  const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
       const user = users.find((d) => safeCompare(d.password, req.body.password))
       if (user) {

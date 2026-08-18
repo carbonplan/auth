@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent } from 'react'
 import { Box, Heading, Input, Button } from 'theme-ui'
 import { useRouter } from 'next/router.js'
-import { Layout, Row, Column, Link } from '@carbonplan/components'
+import { Layout, Row, Column } from '@carbonplan/components'
 import { useSession } from './session'
 import { storage } from './storage'
 
-const Login = ({ disclaimer }) => {
+type Props = {
+  disclaimer?: React.ReactNode
+}
+type Status = 'submitting' | 'invalid' | 'authenticating'
+
+const Login = ({ disclaimer }: Props) => {
   const router = useRouter()
   const [{ config }, setSession] = useSession()
-  const [status, setStatus] = useState(null)
+  const [status, setStatus] = useState<Status | null>(null)
   const [password, setPassword] = useState('')
 
-  const { redirect } = router.query
+  const redirect = Array.isArray(router.query.redirect)
+    ? router.query.redirect[0]
+    : router.query.redirect
 
-  const disabled = ['authenticating', 'submitting'].includes(status)
+  const disabled = !!status && ['authenticating', 'submitting'].includes(status)
 
   useEffect(() => {
     if (config.useLocalStorage) {
@@ -24,10 +31,10 @@ const Login = ({ disclaimer }) => {
     }
   }, [redirect, config.useLocalStorage])
 
-  async function submit(e) {
+  async function submit(e: MouseEvent | FormEvent) {
     setStatus('submitting')
     e.preventDefault()
-    const res = await fetch('/api/auth', {
+    const res = await fetch(config.apiRoute, {
       method: 'POST',
       body: JSON.stringify({ password: password }),
       headers: {
@@ -70,7 +77,9 @@ const Login = ({ disclaimer }) => {
           {disclaimer && <Box sx={{ mt: [2] }}>{disclaimer}</Box>}
           <Box
             as='form'
-            onSubmit={submit}
+            onSubmit={(e) => {
+              submit(e)
+            }}
             sx={{ fontSize: [4], mt: [3, 4, 4], mb: [4] }}
           >
             <Input
@@ -101,7 +110,9 @@ const Login = ({ disclaimer }) => {
             />
             <Button
               disabled={disabled}
-              onClick={submit}
+              onClick={(e) => {
+                submit(e)
+              }}
               type='submit'
               sx={{
                 fontFamily: 'faux',

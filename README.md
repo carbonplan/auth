@@ -65,7 +65,15 @@ const App = ({ Component, pageProps }) => {
 }
 ```
 
-The `AuthProvider` component also accepts a `config` property. Currently the only configuration is whether to use `localStorage` to store JSON webtokens, which enables authentication to persist so long as the key is valid. You can turn this on using `config={{ useLocalStorage: true }}`.
+The `AuthProvider` component also accepts a `config` property to customize the following properties:
+
+| Parameter         | Type      | Default     | Description                                                                                                                                                                                            |
+| ----------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useLocalStorage` | `boolean` | `false`     | Flag for whether to use `localStorage` to store JSON webtokens, which enables authentication to persist so long as the key is valid.                                                                   |
+| `apiRoute`        | `string`  | `/api/auth` | Which API route to ping, as configured in Step 01. Customization may be useful if for example using a [`basePath`](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath).          |
+| `loginRoute`      | `string`  | `/login`    | Which login route to redirect to, as configured in Step 03. Customization may be useful if for example using a [`basePath`](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath). |
+
+You can configure these values using `config={{ useLocalStorage: true, apiRoute: '/custom/api/route', loginRoute: '/custom/login' }}`.
 
 #### `step 03`
 

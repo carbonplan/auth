@@ -4,7 +4,7 @@ export const storage = {
   get: () => {
     try {
       return window.localStorage.getItem(TOKEN_KEY)
-    } catch (err) {
+    } catch (err: any) {
       if (err.message !== 'window is not defined')
         console.warn(
           'localStorage is disabled so cannot be used to persist token',
@@ -12,10 +12,10 @@ export const storage = {
         )
     }
   },
-  set: (value) => {
+  set: (value: string) => {
     try {
       window.localStorage.setItem(TOKEN_KEY, value)
-    } catch (err) {
+    } catch (err: any) {
       if (err.message !== 'window is not defined')
         console.warn(
           'localStorage is disabled so cannot be used to persist token',
@@ -26,7 +26,7 @@ export const storage = {
   remove: () => {
     try {
       window.localStorage.removeItem(TOKEN_KEY)
-    } catch (err) {
+    } catch (err: any) {
       if (err.message !== 'window is not defined')
         console.warn(
           'localStorage is disabled so cannot be used to persist token',
