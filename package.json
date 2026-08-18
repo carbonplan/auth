@@ -5,10 +5,12 @@
   "type": "module",
   "main": "dst/index.cjs",
   "module": "dst/index.module.js",
-  "source": "src/index.js",
+  "source": "src/index.ts",
+  "types": "dst/index.d.ts",
   "scripts": {
     "build": "rimraf dst && microbundle build --jsx React.createElement --jsxFragment React.Fragment -f modern,es,cjs",
-    "watch": "rimraf dst && microbundle watch --jsx React.createElement --jsxFragment React.Fragment -f modern,es,cjs"
+    "watch": "rimraf dst && microbundle watch --jsx React.createElement --jsxFragment React.Fragment -f modern,es,cjs",
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   "homepage": "https://github.com/carbonplan/auth#readme",
   "exports": {
     ".": {
+      "types": "./dst/index.d.ts",
       "require": "./dst/index.cjs",
       "default": "./dst/index.modern.js"
     }
@@ -39,9 +42,11 @@
   },
   "devDependencies": {
     "@carbonplan/prettier": "^1.2.0",
+    "@types/react": "^18.2.0",
     "microbundle": "^0.14.0",
     "prettier": "2.5.0",
-    "rimraf": "2.6.3"
+    "rimraf": "2.6.3",
+    "typescript": "^5.4.0"
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",

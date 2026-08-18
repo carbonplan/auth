@@ -1,12 +1,11 @@
 import useSWR from 'swr'
-import React, { useState, useEffect, createContext, useContext } from 'react'
+import React, { useEffect, ComponentType } from 'react'
 import { useRouter } from 'next/router.js'
 import { Layout } from '@carbonplan/components'
 import { useSession } from './session'
 import { storage } from './storage'
 
 export function useAuth() {
-  const router = useRouter()
   const [{ token, config }] = useSession()
 
   let auth
@@ -16,10 +15,12 @@ export function useAuth() {
     auth = token
   }
 
-  const fetcher = (url, token) =>
-    fetch(url, { headers: { Authorization: auth } }).then((r) => r.json())
+  const fetcher = (url: string, token: string | null) =>
+    fetch(url, auth ? { headers: { Authorization: auth } } : undefined).then(
+      (r) => r.json()
+    )
 
-  const { data, error } = useSWR(['/api/auth', auth], fetcher)
+  const { data, error } = useSWR([config.apiRoute, auth], fetcher)
   const loading = !data && !error
   const authed = data && data.authed
   const username = data && data.authed ? data.username : null
@@ -27,9 +28,11 @@ export function useAuth() {
   return { data, error, loading, authed, username }
 }
 
-export const withAuth =
-  (Component, usernames = ['admin']) =>
-  (props) => {
+export function withAuth<T extends object>(
+  Component: ComponentType<T>,
+  usernames = ['admin']
+): React.FC<T> {
+  return (props: T) => {
     const router = useRouter()
     const [{ config }] = useSession()
     const { data, error, loading } = useAuth()
@@ -38,7 +41,7 @@ export const withAuth =
       if ((data && !data.authed) || error) {
         if (config.useLocalStorage) storage.remove()
         window.location.assign(
-          `/login?redirect=${encodeURIComponent(router.asPath)}`
+          `${config.loginRoute}?redirect=${encodeURIComponent(router.asPath)}`
         )
       }
     }, [data])
@@ -69,3 +72,4 @@ export const withAuth =
       )
     }
   }
+}
