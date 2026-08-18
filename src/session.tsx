@@ -29,19 +29,20 @@ export const useSession = (): SessionContextValue => {
   return value
 }
 
-type Props = {
-  children: React.ReactNode
-  config?: Config
+const DEFAULT_CONFIG: Config = {
+  useLocalStorage: false,
+  apiRoute: '/api/auth',
+  loginRoute: '/login',
 }
 
-export const SessionProvider = ({
-  children,
-  config = {
-    useLocalStorage: false,
-    apiRoute: '/api/auth',
-    loginRoute: '/login',
-  },
-}: Props) => {
+type Props = {
+  children: React.ReactNode
+  config?: Partial<Config>
+}
+
+export const SessionProvider = ({ children, config: configProp }: Props) => {
+  const config: Config = { ...DEFAULT_CONFIG, ...configProp }
+
   const [session, setSession] = useState<SessionValue>({
     token: null,
     username: null,
