@@ -11,7 +11,7 @@ const api = ({
 }: {
   secret: string
   users: User[]
-  expiration?: string
+  expiration?: string | number
 }) => {
   const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
